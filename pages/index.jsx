@@ -55,7 +55,7 @@ export default function Home() {
                   let class_list = styles.tab;
                   if (tag == selectedTab) { class_list = class_list + ' ' + styles.selected }
                   return (
-                    <div onClick={() => {
+                    <div key={"t"+tag} onClick={() => {
                       setselectedTab(tag);
                     }} className={class_list}>
                       {tag}
@@ -92,7 +92,7 @@ export default function Home() {
           {
             [[1, "/medal-gold.png"], [2, "/medal-silver.png"], [3, "/medal-bronze.png"], [4, "/medal-blank.png"], [5, "/medal-blank.png"], [6, "/medal-blank.png"], [7, "/medal-blank.png"], [8, "/medal-blank.png"], [9, "/medal-blank.png"], [10, "/medal-blank.png"]].map((ele) => {
               return (
-                <div className={styles.tableBody}>
+                <div key={"m"+ele} className={styles.tableBody}>
                   <span className={styles.tb1}>
                     <p>#{ele[0]}</p>
                     <img src={ele[1]} alt="" />
@@ -189,7 +189,7 @@ function Starrating({ rating }) {
             img_src = "/star-filled.png"
           }
           return (
-            <img src={img_src} alt="" />
+            <img key={"i"+ele} src={img_src} alt="" />
           )
         })
       }
