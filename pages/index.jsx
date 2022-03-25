@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from './index/index.module.scss'
+import Nav from './index/Nav';
 import { useState } from 'react';
 
 export default function Home() {
@@ -193,20 +194,6 @@ function Starrating({ rating }) {
           )
         })
       }
-    </div>
-  )
-}
-
-
-function Nav() {
-  return (
-    <div className={styles.nav}>
-      <img className={styles.logo} src="/logo.png" alt="" />
-      <ul>
-        <li>Add a dao</li>
-        <li>Discover DAOs</li>
-        <li><button>Connect wallet</button></li>
-      </ul>
     </div>
   )
 }
