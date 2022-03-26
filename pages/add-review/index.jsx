@@ -149,7 +149,6 @@ function Starrating({ rating }) {
 
 function SliderComp() {
     const [sliderValue, setsliderValue] = useState(50);
-    console.log(sliderValue);
     return (
         <div className={styles.slider}>
             <span className={styles.sliderComp}>
@@ -183,7 +182,7 @@ function Rating() {
                     }
                     return (
                         <img
-                            onClick={() => { setRating(ele); }}
+                           key={"st"+ele} onClick={() => { setRating(ele); }}
                             src={img_src} alt=""
                         />
                     )
