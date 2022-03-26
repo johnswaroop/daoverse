@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from './index/index.module.scss'
-import Nav from './index/Nav';
+import Nav from '../components/Nav';
 import { useState } from 'react';
 
 export default function Home() {
