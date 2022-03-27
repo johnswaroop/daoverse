@@ -65,51 +65,54 @@ export default function index() {
                         </div>
                     </div>
                 </div>
+
                 <div className={styles.rightSidebar}>
                     <h3>Recent reviews</h3>
-                    <div className={styles.reviewCard + ' ' + styles.r1}>
-                        <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
-                        <div className={styles.profile}>
-                            <img className={styles.commaFloat} src="/comma-float.png" alt="" />
-                            <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
-                            <p>Van Goh</p>
-                            <Starrating rating={4} />
+                    <div className={styles.scrollBar}>
+                        <div className={styles.reviewCard + ' ' + styles.r1}>
+                            <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
+                            <div className={styles.profile}>
+                                <img className={styles.commaFloat} src="/comma-float.png" alt="" />
+                                <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
+                                <p>Van Goh</p>
+                                <Starrating rating={4} />
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.reviewCard + ' ' + styles.r1}>
-                        <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
-                        <div className={styles.profile}>
-                            <img className={styles.commaFloat} src="/comma-float.png" alt="" />
-                            <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
-                            <p>Van Goh</p>
-                            <Starrating rating={4} />
+                        <div className={styles.reviewCard + ' ' + styles.r1}>
+                            <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
+                            <div className={styles.profile}>
+                                <img className={styles.commaFloat} src="/comma-float.png" alt="" />
+                                <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
+                                <p>Van Goh</p>
+                                <Starrating rating={4} />
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.reviewCard + ' ' + styles.r1}>
-                        <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
-                        <div className={styles.profile}>
-                            <img className={styles.commaFloat} src="/comma-float.png" alt="" />
-                            <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
-                            <p>Van Goh</p>
-                            <Starrating rating={4} />
+                        <div className={styles.reviewCard + ' ' + styles.r1}>
+                            <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
+                            <div className={styles.profile}>
+                                <img className={styles.commaFloat} src="/comma-float.png" alt="" />
+                                <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
+                                <p>Van Goh</p>
+                                <Starrating rating={4} />
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.reviewCard + ' ' + styles.r1}>
-                        <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
-                        <div className={styles.profile}>
-                            <img className={styles.commaFloat} src="/comma-float.png" alt="" />
-                            <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
-                            <p>Van Goh</p>
-                            <Starrating rating={4} />
+                        <div className={styles.reviewCard + ' ' + styles.r1}>
+                            <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
+                            <div className={styles.profile}>
+                                <img className={styles.commaFloat} src="/comma-float.png" alt="" />
+                                <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
+                                <p>Van Goh</p>
+                                <Starrating rating={4} />
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.reviewCard + ' ' + styles.r1}>
-                        <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
-                        <div className={styles.profile}>
-                            <img className={styles.commaFloat} src="/comma-float.png" alt="" />
-                            <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
-                            <p>Van Goh</p>
-                            <Starrating rating={4} />
+                        <div className={styles.reviewCard + ' ' + styles.r1}>
+                            <p>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.</p>
+                            <div className={styles.profile}>
+                                <img className={styles.commaFloat} src="/comma-float.png" alt="" />
+                                <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
+                                <p>Van Goh</p>
+                                <Starrating rating={4} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +142,8 @@ function Starrating({ rating }) {
                         img_src = "/star-filled.png"
                     }
                     return (
-                        <img key={"i" + ele} src={img_src} alt="" />
+                        <img key={"i" + ele} src={img_src} alt=""
+                        />
                     )
                 })
             }
@@ -172,6 +176,9 @@ function SliderComp() {
 
 function Rating() {
     const [rating, setRating] = useState(0);
+    const [saveRating, setSaveRating] = useState(0);
+    const [hover, sethover] = useState(false);
+
     return (
         <div className={styles.ratingComp}>
             {
@@ -182,8 +189,19 @@ function Rating() {
                     }
                     return (
                         <img
-                           key={"st"+ele} onClick={() => { setRating(ele); }}
+                            key={"st" + ele}
                             src={img_src} alt=""
+                            onMouseEnter={(e) => {
+                                setRating(ele)
+                            }}
+                            onClick={() => {
+                                setSaveRating(ele);
+                            }}
+                            onMouseLeave={() => {
+                                if (rating != saveRating) {
+                                    setRating(saveRating);
+                                }
+                            }}
                         />
                     )
                 })
