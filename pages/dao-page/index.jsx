@@ -22,7 +22,7 @@ function Starrating({ rating }) {
         </div>
     )
 }
-
+ 
 
 function DaoPage() {
     return (
