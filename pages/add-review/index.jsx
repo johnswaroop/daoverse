@@ -1,8 +1,8 @@
-import Nav from '../../components/Nav/';
+ 
 import styles from './review.module.scss'
 import { useEffect, useState } from 'react';
 import DaoCard from '../../components/DaoCard';
-
+import Nav from '../../components/Nav';
 export default function index() {
 
     return (
