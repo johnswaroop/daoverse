@@ -2,11 +2,27 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from './index/index.module.scss'
 import Nav from '../components/Nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
 
   const [selectedTab, setselectedTab] = useState('all');
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [topSearchVisible, settopSearchVisible] = useState(false);
+
+  useEffect(() => {
+    let sec2 = document.querySelector('#sec2');
+
+    window.addEventListener('scroll', (e) => {
+      if (sec2.getBoundingClientRect().y < 0) {
+        settopSearchVisible(true);
+      } else {
+        settopSearchVisible(false);
+      }
+    })
+
+  }, [])
+
 
   return (
     <div className={styles.container}>
@@ -18,16 +34,20 @@ export default function Home() {
 
       <section className={styles.homepage}>
         <div className={styles.hero}>
-          <Nav />
+          <Nav topSearchVisible={topSearchVisible} />
           <div className={styles.title}>
             <h3>Review DAOs to</h3>
             <h3 className={styles.titleBlue}>Earn Rewards!</h3>
           </div>
           <p className={styles.subTitle}>Unlock rewards for learning, contributing and reviewing DAOs Anonymously!</p>
-          <button>Explore DAOs</button>
+          {
+            (searchVisible) ? <SearchComp /> : <button onClick={() => {
+              setSearchVisible(true);
+            }} > <img src="/search-icon.png" alt="" /> Search your DAOs here</button>
+          }
         </div>
 
-        <div className={styles.sec2}>
+        <div id={'sec2'} className={styles.sec2}>
           <div style={{ gridArea: 'a', background: "#040E10" }} >
             <h3 style={{ width: '406px' }}>Earn NFT for reviewing DAOs</h3>
             <img className={styles.floatimg1} src="/sec2float1.png" alt="" />
@@ -56,7 +76,7 @@ export default function Home() {
                   let class_list = styles.tab;
                   if (tag == selectedTab) { class_list = class_list + ' ' + styles.selected }
                   return (
-                    <div key={"t"+tag} onClick={() => {
+                    <div key={"t" + tag} onClick={() => {
                       setselectedTab(tag);
                     }} className={class_list}>
                       {tag}
@@ -70,7 +90,7 @@ export default function Home() {
             {
               [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((ele) => {
                 return (
-                  <DaoCard key={'c'+ele} />
+                  <DaoCard key={'c' + ele} />
                 )
               })
             }
@@ -93,7 +113,7 @@ export default function Home() {
           {
             [[1, "/medal-gold.png"], [2, "/medal-silver.png"], [3, "/medal-bronze.png"], [4, "/medal-blank.png"], [5, "/medal-blank.png"], [6, "/medal-blank.png"], [7, "/medal-blank.png"], [8, "/medal-blank.png"], [9, "/medal-blank.png"], [10, "/medal-blank.png"]].map((ele) => {
               return (
-                <div key={"m"+ele} className={styles.tableBody}>
+                <div key={"m" + ele} className={styles.tableBody}>
                   <span className={styles.tb1}>
                     <p>#{ele[0]}</p>
                     <img src={ele[1]} alt="" />
@@ -163,6 +183,23 @@ export default function Home() {
   )
 }
 
+function SearchComp() {
+  return (
+    <div className={styles.searchComp}>
+      <input type="text" />
+      <img className={styles.searchIcon} src="search-blue.png" alt="" />
+      <div className={styles.suggestionCon}>
+        <div className={styles.suggestion}>
+          <img style={{ gridArea: "a" }} src="/sample.jpg" alt="" />
+          <h1 style={{ gridArea: "b" }}>Bankless DAO</h1>
+          <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
+          <p style={{ gridArea: "d" }}>128 reviews</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function DaoCard() {
   return (
     <div className={styles.daoCard}>
@@ -190,7 +227,7 @@ function Starrating({ rating }) {
             img_src = "/star-filled.png"
           }
           return (
-            <img key={"i"+ele} src={img_src} alt="" />
+            <img key={"i" + ele} src={img_src} alt="" />
           )
         })
       }
