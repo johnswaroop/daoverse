@@ -1,4 +1,5 @@
 import styles from './nav.module.scss'
+import { useState } from 'react';
 
 function Nav({ topSearchVisible }) {
     let search_style = styles.nav;
@@ -21,6 +22,8 @@ function Nav({ topSearchVisible }) {
 
 function SearchComp({ topSearchVisible }) {
 
+    const [suggestionVisible, setsuggestionVisible] = useState(false)
+
     let search_style = styles.searchComp;
     if (topSearchVisible) {
         search_style = styles.searchComp + ' ' + styles.searchCompDisable
@@ -28,16 +31,19 @@ function SearchComp({ topSearchVisible }) {
 
     return (
         <div className={search_style}>
-            <input type="text" />
+            <input type="text" onClick={()=>{
+                setsuggestionVisible(true);
+            }} />
             <img className={styles.searchIcon} src="search-icon.png" alt="" />
-            <div className={styles.suggestionCon}>
-                <div className={styles.suggestion}>
-                    <img style={{ gridArea: "a" }} src="/sample.jpg" alt="" />
-                    <h1 style={{ gridArea: "b" }}>Bankless DAO</h1>
-                    <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
-                    <p style={{ gridArea: "d" }}>128 reviews</p>
-                </div>
-            </div>
+            {(suggestionVisible) &&
+                <div className={styles.suggestionCon}>
+                    <div className={styles.suggestion}>
+                        <img style={{ gridArea: "a" }} src="/sample.jpg" alt="" />
+                        <h1 style={{ gridArea: "b" }}>Bankless DAO</h1>
+                        <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
+                        <p style={{ gridArea: "d" }}>128 reviews</p>
+                    </div>
+                </div>}
         </div>
     )
 }

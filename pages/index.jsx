@@ -15,9 +15,16 @@ export default function Home() {
 
     window.addEventListener('scroll', (e) => {
       if (sec2.getBoundingClientRect().y < 0) {
+
+        // console.log("transition t");
         settopSearchVisible(true);
+
+
       } else {
+
+        // console.log("transition x");
         settopSearchVisible(false);
+
       }
     })
 
