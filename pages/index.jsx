@@ -3,12 +3,45 @@ import Image from 'next/image'
 import styles from './index/index.module.scss'
 import Nav from '../components/Nav';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Web3 from 'web3';
+
+const openMetaMask = async () => {
+  await Web3.currentProvider.enable();
+  let web3 = new Web3(Web3.currentProvider.enable());
+}
+
+const openNewTab = (url) => {
+  if (url.length < 1) return
+  let a = document.createElement('a');
+  a.target = '_blank';
+  a.href = url;
+  a.click();
+}
+
+const API = process.env.API
 
 export default function Home() {
+
+  useEffect(() => {
+
+    openMetaMask();
+
+  }, [])
 
   const [selectedTab, setselectedTab] = useState('all');
   const [searchVisible, setSearchVisible] = useState(false);
   const [topSearchVisible, settopSearchVisible] = useState(false);
+
+  // data states
+  const [daoList, setdaoList] = useState([]);
+  const [leaderboard, setleaderboard] = useState([])
+
+  useEffect(() => {
+    getDaolistAPI(setdaoList);
+    getLeaderboard(setleaderboard)
+  }, [])
+
 
   useEffect(() => {
     let sec2 = document.querySelector('#sec2');
@@ -31,6 +64,7 @@ export default function Home() {
   }, [])
 
 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -47,11 +81,12 @@ export default function Home() {
             <h3 className={styles.titleBlue}>Earn Rewards!</h3>
           </div>
           <p className={styles.subTitle}>Unlock rewards for learning, contributing and reviewing DAOs Anonymously!</p>
-          {
+          <SearchComp />
+          {/* {
             (searchVisible) ? <SearchComp /> : <button onClick={() => {
               setSearchVisible(true);
             }} > <img src="/search-icon.png" alt="" /> Search your DAOs here</button>
-          }
+          } */}
         </div>
 
         <div id={'sec2'} className={styles.sec2}>
@@ -76,7 +111,7 @@ export default function Home() {
             <p className={styles.blueText}>please submit your request here 🡥</p>
           </div>
 
-          <div className={styles.tagtabs}>
+          <div className={styles.tagtabs} >
             {
               ['all', 'social', 'investment', 'service', 'protocol', 'NFT', 'marketplace']
                 .map((tag) => {
@@ -94,11 +129,18 @@ export default function Home() {
           </div>
 
           <div className={styles.daoListContainer}>
+            {/* List of daos */}
             {
-              [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((ele) => {
-                return (
-                  <DaoCard key={'c' + ele} />
-                )
+              daoList.map((ele, idx) => {
+                if (selectedTab == 'all') {
+                  return (
+                    <DaoCard link={ele.slug} data={ele} key={'c' + idx + selectedTab} />
+                  )
+                } else {
+                  if (ele.dao_category.includes(selectedTab)) {
+                    return <DaoCard link={ele.slug} data={ele} key={'c' + idx + selectedTab} />
+                  }
+                }
               })
             }
           </div>
@@ -118,19 +160,31 @@ export default function Home() {
             <p className={styles.th4}>Socials</p>
           </div>
           {
-            [[1, "/medal-gold.png"], [2, "/medal-silver.png"], [3, "/medal-bronze.png"], [4, "/medal-blank.png"], [5, "/medal-blank.png"], [6, "/medal-blank.png"], [7, "/medal-blank.png"], [8, "/medal-blank.png"], [9, "/medal-blank.png"], [10, "/medal-blank.png"]].map((ele) => {
+            leaderboard.map((ele, idx) => {
+              let medal = '/medal-blank.png';
+
+              if (idx == 0) {
+                medal = 'medal-gold.png';
+              }
+              if (idx == 1) {
+                medal = 'medal-silver.png';
+              }
+              if (idx == 2) {
+                medal = 'medal-bronze.png';
+              }
+
               return (
                 <div key={"m" + ele} className={styles.tableBody}>
                   <span className={styles.tb1}>
-                    <p>#{ele[0]}</p>
-                    <img src={ele[1]} alt="" />
+                    <p>#{idx + 1}</p>
+                    <img src={medal} alt="" />
                   </span>
-                  <span className={styles.tb2}>Bankless DAO</span>
-                  <span className={styles.tb3}><Starrating rating={4} /></span>
+                  <span className={styles.tb2}>{ele.dao_name}</span>
+                  <span className={styles.tb3}><Starrating rating={ele.average_rating} /></span>
                   <span className={styles.tb4}>
-                    <img src="/twitter-white.png" alt="" />
-                    <img src="/discord-white.png" alt="" />
-                    <img src="/web-white.png " alt="" />
+                    <img onClick={() => { openNewTab(ele.twitter_link) }} src="/twitter-white.png" alt="" />
+                    <img onClick={() => { openNewTab(ele.discord_link) }} src="/discord-white.png" alt="" />
+                    <img onClick={() => { openNewTab(ele.website_link) }} src="/web-white.png " alt="" />
                   </span>
                 </div>
               )
@@ -207,17 +261,21 @@ function SearchComp() {
   )
 }
 
-function DaoCard() {
+function DaoCard({ data, link }) {
+  let cover = (data.dao_cover) ? data.dao_cover : "https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/14.jpg?3";
+
   return (
-    <div className={styles.daoCard}>
-      <img className={styles.cardCover} src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/14.jpg?3" alt="" />
+    <div className={styles.daoCard} onClick={() => {
+      openNewTab(`${window.location.href}/dao/${link}`)
+    }}>
+      <img className={styles.cardCover} src={cover} alt="" />
       <div className={styles.info}>
-        <p>Bankless DAO</p>
+        <p>{data.dao_name}</p>
         <Starrating rating={4} />
         <span className={styles.socialIcon}>
-          <img src="/twitter-grey.png" alt="" />
-          <img src="/discord-grey.png" alt="" />
-          <img src="/web-grey.png" alt="" />
+          <img src="/twitter-grey.png" onClick={() => { openNewTab(data.twitter_link) }} alt="" />
+          <img src="/discord-grey.png" onClick={() => { openNewTab(data.discord_link) }} alt="" />
+          <img src="/web-grey.png" onClick={() => { openNewTab(data.website_link) }} alt="" />
         </span>
       </div>
     </div>
@@ -240,6 +298,24 @@ function Starrating({ rating }) {
       }
     </div>
   )
+}
+
+// Api calls
+
+//get list of daos
+const getDaolistAPI = async (setter) => {
+  let url = `${API}/dao/get-dao-list`;
+  let res = await axios.get(url);
+  console.log(res.data)
+  setter(res.data);
+}
+
+//get Leaderboard
+const getLeaderboard = async (setter) => {
+  let url = `${API}/dao/get-dao-list`;
+  let res = await axios.get(url);
+  console.log(res.data)
+  setter(res.data);
 }
 
 

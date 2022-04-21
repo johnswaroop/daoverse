@@ -102,13 +102,80 @@
         }
     }
 
+    .categoryInput {
+        display: flex;
+        flex-wrap: wrap;
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        box-sizing: border-box;
+        border-radius: 16px;
+        height: auto;
+        width: 772px;
+        margin-bottom: 40px;
+
+        .catInput {
+            border: none;
+            flex-grow: 0.5;
+            margin: 0;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 5rem;
+            input {
+                width: 100%;
+                margin-bottom: 0;
+                height: 38px;
+                margin: 3px 16px;
+                background: transparent;
+                border: none;
+                &:active {
+                    outline: 1px solid rgb(255, 255, 255);
+                }
+                &:focus {
+                    outline: 1px solid rgb(134, 134, 134);
+                }
+            }
+        }
+
+        .catTag {
+            display: flex;
+            align-items: center;
+            height: 42px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(90deg, #5e1ed1 0%, #3065f3 100%);
+            border-radius: 16px;
+            padding: 0 11.5px;
+            padding-bottom: 2px;
+            margin: 7px 8px;
+
+            &:hover {
+                outline: 1.5px solid rgb(255, 32, 32);
+            }
+        }
+
+        .close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 7px;
+            width: 7px;
+            img {
+                object-fit: contain;
+                height: 100%;
+                width: 100%;
+                margin-top: 0.25rem;
+            }
+            margin-left: 11px;
+        }
+    }
+
     .uploadImage {
         display: flex;
         width: 772px;
         justify-content: space-between;
         margin-bottom: 40px;
 
-        span {
+        label {
             display: flex;
             width: 342px;
             flex-direction: column;
@@ -122,6 +189,14 @@
             img {
                 width: 342px;
                 height: 216px;
+                object-fit: contain;
+                background-color: white;
+                border-radius: 15px;
+            }
+
+            input[type="file"] {
+                height: 0px;
+                opacity: 0;
             }
         }
     }

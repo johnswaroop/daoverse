@@ -171,6 +171,7 @@
             align-items: center;
             text-transform: capitalize;
             margin: 0 16px;
+            cursor: pointer;
         }
 
         .selected {
@@ -184,9 +185,10 @@
         width: 100%;
         flex-wrap: wrap;
         margin-top: 83px;
-        justify-content: center;
+        //justify-content: center;
 
         .daoCard {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             width: 249.85px;
@@ -195,6 +197,8 @@
             border-radius: 25.3785px;
             margin: 23.5px 6.5px;
             overflow: hidden;
+            box-shadow: 0px 3.17231px 12.6892px rgba(51, 51, 51, 0.397), 0px 3.17231px 3.17231px rgba(51, 51, 51, 0.24);
+            animation: appear 0.35s ease-in-out forwards;
         }
 
         .cardCover {
@@ -550,7 +554,7 @@
         position: absolute;
         font-weight: 500;
         font-size: 20px;
-        color: rgba(48, 101, 243, 1);
+        color: black;
     }
 
     .searchIcon {
@@ -609,5 +613,14 @@
             font-weight: 400;
             font-size: 14px;
         }
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
