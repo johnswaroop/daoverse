@@ -6,13 +6,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const openMetaMask = async () => {
-  let ethereum = window.ethereum
-  let accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-  console.log(accounts);
-  return accounts[0]
-}
-
 const openNewTab = (url) => {
   if (url.length < 1) return
   let a = document.createElement('a');

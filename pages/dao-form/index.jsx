@@ -54,6 +54,12 @@ function DaoForm() {
         }
         let url = `${process.env.API}/dao/create-new-dao`
         let res = await axios.post(url, { ...formData, dao_category: daoCatList });
+        if (res.data.status == true) {
+          window.location.href = './redirect/success'
+        }
+        else{
+            window.location.href = './redirect/failed'
+        }
         console.log(res);
     }
 
@@ -192,7 +198,7 @@ function DaoForm() {
 
                 <span name={'website_link'} className={styles.input}>
                     <p>Discord guild ID</p>
-                    <input name={'guild_id'} placeholder='Paste it here, it will link automatically' type="text" onChange={formHandler}  />
+                    <input name={'guild_id'} placeholder='Paste it here, it will link automatically' type="text" onChange={formHandler} />
                 </span>
 
                 {/* <span className={styles.input}>
