@@ -58,7 +58,7 @@ function DaoForm() {
     }
 
     useEffect(() => {
-       //submitSampleData();
+        //submitSampleData();
     }, [])
 
 
@@ -77,7 +77,7 @@ function DaoForm() {
                 </span>
 
                 <span className={styles.input} id={"catlist"}>
-                    <p>What’s the category of your DAO? <small>(Enter ' <strong>,</strong> ' to add a Category)</small> </p>
+                    <p>What’s the category of your DAO? <small>(Enter ` <strong>,</strong> ` to add a Category)</small> </p>
                     <div className={styles.categoryInput}>
                         {
                             <>
