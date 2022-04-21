@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './daoForm.module.scss'
 import Nav from '../../components/Nav'
 import axios from 'axios'
-import submitSampleData from './addSampleData'
+
 
 let formObject = {
     "dao_name": "string",
