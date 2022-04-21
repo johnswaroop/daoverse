@@ -4,11 +4,13 @@ import styles from './index/index.module.scss'
 import Nav from '../components/Nav';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Web3 from 'web3';
+
 
 const openMetaMask = async () => {
-  await Web3.currentProvider.enable();
-  let web3 = new Web3(Web3.currentProvider.enable());
+  let ethereum = window.ethereum
+  let accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+  console.log(accounts);
+  return accounts[0]
 }
 
 const openNewTab = (url) => {
@@ -22,13 +24,6 @@ const openNewTab = (url) => {
 const API = process.env.API
 
 export default function Home() {
-
-  useEffect(() => {
-
-    openMetaMask();
-
-  }, [])
-
   const [selectedTab, setselectedTab] = useState('all');
   const [searchVisible, setSearchVisible] = useState(false);
   const [topSearchVisible, settopSearchVisible] = useState(false);

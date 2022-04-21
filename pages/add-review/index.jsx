@@ -347,12 +347,23 @@ function Rating({ setrating }) {
 
 //Post review
 
+
+const openMetaMask = async () => {
+    let ethereum = window.ethereum
+    let accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+    console.log(accounts);
+    return accounts[0]
+}
+
+
 const postReview = async (formData, dao_name, guild_id) => {
+    let public_address = await openMetaMask();
     console.log("Review Post started");
     let postData = {
         ...formData,
         "dao_name": dao_name,
         "guild_id": guild_id,
+        "public_address": public_address,
     }
     window.location.href = `${API}/review/add-review?data=${JSON.stringify(postData)}`
 }
