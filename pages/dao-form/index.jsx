@@ -190,12 +190,12 @@ function DaoForm() {
                     </span>
                 </div>
 
-                {/* <span className={styles.input}>
+                <span name={'website_link'} className={styles.input}>
                     <p>Discord guild ID</p>
-                    <input placeholder='Paste it here, it will link automatically' type="text" />
+                    <input name={'guild_id'} placeholder='Paste it here, it will link automatically' type="text" onChange={formHandler}  />
                 </span>
 
-                <span className={styles.input}>
+                {/* <span className={styles.input}>
                     <p>Slug</p>
                     <input placeholder='Paste it here, it will link automatically' type="text" />
                 </span> */}
