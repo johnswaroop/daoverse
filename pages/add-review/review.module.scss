@@ -20,6 +20,8 @@
     color: black;
 }
 
+
+
 .reviewForm {
     display: flex;
     width: 863px;
@@ -44,8 +46,9 @@
             resize: vertical;
             padding: 15px;
             font-weight: 400;
-            font-size: 20px;
+            font-size: 18px;
             line-height: 24px;
+            font-family: inherit;
         }
     }
 
