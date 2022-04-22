@@ -239,7 +239,7 @@ function DaoPage() {
                     {
                         dao_list.map((ele, idx) => {
                             if (idx < 5) {
-                                return <DaoCard link={ele.slug} cover={ele.dao_cover} name={ele.dao_name} rating={parseInt(dao_data.average_rating)} key={idx + "daolist"} />
+                                return <DaoCard link={ele.slug} cover={ele.dao_cover} name={ele.dao_name} rating={parseInt(ele.average_rating)} key={idx + "daolist"} />
                             }
                         })
                     }

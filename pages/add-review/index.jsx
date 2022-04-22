@@ -13,6 +13,7 @@ export default function Index() {
     const [reviewDesc, setreviewDesc] = useState('');
     const [tc, settc] = useState(false);
     const [data, setdata] = useState(null);
+    const [dao_list, setdao_list] = useState(null);
 
     useEffect(() => {
         let cookie = window.getCookie = function (name) {
@@ -44,6 +45,19 @@ export default function Index() {
         catch (er) {
             console.log(er);
         }
+
+        try {
+            const db_res = await axios.get(`${API}/dao/get-dao-list`)
+            if (db_res.data) {
+                setdao_list(db_res.data)
+            }
+            else {
+                alert("network error");
+            }
+        }
+        catch (er) {
+            console.log(er);
+        }
     }
 
     useEffect(() => {
@@ -69,6 +83,15 @@ export default function Index() {
     if (!data) {
         return (
             <h1></h1>
+        )
+    }
+
+
+    if (!dao_list) {
+        return (
+            <h1>
+
+            </h1>
         )
     }
 
@@ -244,11 +267,14 @@ export default function Index() {
             <div className={styles.footer}>
                 <h3>Other similar DAOs</h3>
                 <div className={styles.daoList}>
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
+                    {
+                        dao_list.map((ele, idx) => {
+                            if (idx < 5) {
+                                return <DaoCard link={ele.slug} cover={ele.dao_cover} name={ele.dao_name} rating={parseInt(ele.average_rating)} key={idx + "daolist"} />
+                            }
+                        })
+                    }
+
                 </div>
             </div>
         </>
