@@ -162,7 +162,7 @@ export default function Home() {
               }
 
               return (
-                <div key={"m" + ele} className={styles.tableBody}>
+                <div key={"m" + ele.dao_name} className={styles.tableBody}>
                   <span className={styles.tb1}>
                     <p>#{idx + 1}</p>
                     <img src={medal} alt="" />

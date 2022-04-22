@@ -72,6 +72,7 @@
             margin-top: 17.1px;
             margin-right: 8px;
             line-height: 0;
+            text-transform: capitalize;
         }
     }
 }
@@ -104,6 +105,14 @@
             background: linear-gradient(90deg, #5e1ed1 0%, rgb(48, 101, 243) 100%);
             color: white;
         }
+
+        .slug {
+            width: 459px;
+            margin-right: 0;
+            background: white;
+            color: black;
+            font-weight: 500;
+        }
     }
 }
 
@@ -119,15 +128,16 @@
         .dials {
             display: flex;
             width: 100%;
-            height: 155px;
+            height: auto;
             border-radius: 32px;
             background-color: white;
             align-items: center;
-            padding: 32px;
-            padding-right: 0;
+            padding: 32px 0;
             position: relative;
+            flex-direction: column;
 
             button {
+                transition: all 0.35s ease-in-out;
                 position: absolute;
                 border: none;
                 background-color: transparent;
@@ -145,6 +155,11 @@
                     object-fit: contain;
                     filter: invert(100%);
                 }
+            }
+            .dialRow {
+                display: flex;
+                align-items: center;
+                animation: appear 0.5s ease-in-out forwards;
             }
         }
 
@@ -358,5 +373,14 @@
     }
     .daoList {
         display: flex;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

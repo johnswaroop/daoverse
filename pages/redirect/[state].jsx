@@ -12,43 +12,6 @@ function DaoForm() {
     const router = useRouter()
     const state = router.query.state
 
-    const [formData, setFormData] = useState({});
-    const [catInput, setcatInput] = useState('');
-    const [daoCatList, setdaoCatList] = useState([]);
-
-    const [imgSrc, setimgSrc] = useState({
-        logo: '',
-        cover: ''
-    })
-
-
-    let formHandler = (e) => {
-        setFormData((obj) => {
-            obj[e.target.name] = e.target.value;
-            return { ...obj }
-        })
-    }
-
-    const submitForm = async () => {
-
-        if (!(formData.dao_cover?.length && formData.dao_logo?.length)) {
-            alert("Please Upload the Cover image and DAO logo");
-            return null
-        }
-
-        if (!(daoCatList?.length)) {
-            alert("Please add DAO category");
-            return null
-        }
-        let url = `${process.env.API}/dao/create-new-dao`
-        let res = await axios.post(url, { ...formData, dao_category: daoCatList });
-        console.log(res);
-    }
-
-    useEffect(() => {
-        //submitSampleData();
-    }, [])
-
     let success = <>
         <img src="/sucess_tick.png" className={styles.sc_tick} alt="" />
         <p>Congratulations! You have successfully submitted . Now sit back and relax. If we need more information, we will reach out to you. Otherwise, you are all set :)</p>
@@ -86,6 +49,5 @@ function DaoForm() {
         </div>
     )
 }
-
 
 export default DaoForm

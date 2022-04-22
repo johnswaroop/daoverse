@@ -38,9 +38,9 @@ function DaoPage() {
     }, [slug])
 
     const [dao_data, setdao_data] = useState(null);
+    const [dao_list, setdao_list] = useState(null);
 
     const fetchData = async () => {
-
 
         console.log(slug);
         try {
@@ -56,7 +56,22 @@ function DaoPage() {
         catch (er) {
             console.log(er);
         }
+
+        try {
+            const db_res = await axios.get(`${API}/dao/get-dao-list`)
+            if (db_res.data) {
+                setdao_list(db_res.data)
+            }
+            else {
+                alert("network error");
+            }
+        }
+        catch (er) {
+            console.log(er);
+        }
     }
+
+    const [showAlldials, setshowAlldials] = useState(false);
 
     if (!dao_data) {
         return (
@@ -65,6 +80,16 @@ function DaoPage() {
             </h1>
         )
     }
+
+    if (!dao_list) {
+        return (
+            <h1>
+
+            </h1>
+        )
+    }
+
+    let uniqueCategories = new Set([...dao_data.dao_category])
 
     return (
         <>
@@ -77,8 +102,11 @@ function DaoPage() {
                         <h1>{dao_data.dao_name}</h1>
                         <Starrating rating={dao_data.average_rating} />
                         <div className={styles.tags}>
-                            <span>Collector DAO</span>
-                            <span>Service DAO</span>
+                            {
+                                [...uniqueCategories].map((cat) => {
+                                    return <span key={"cat" + cat}>{`${cat} DAO`}</span>
+                                })
+                            }
                         </div>
                     </div>
                 </div>
@@ -88,33 +116,69 @@ function DaoPage() {
                         <button onClick={() => {
                             window.location.href = `../set-review/${dao_data._id}`
                         }}>Add a Review</button>
-                        <button>{`Daoverse.com/dao/${slug}`}</button>
+                        <button className={styles.slug}>{`Daoverse.com/dao/${slug}`}</button>
                     </div>
                 </div>
                 <div className={styles.contentCon}>
                     <div className={styles.content}>
                         <div className={styles.dials}>
-                            <div className={styles.dialCon}>
-                                <Dial percentage={50} />
-                                <p>relate to the vibes!</p>
-                            </div>
-                            <div className={styles.dialCon}>
-                                <Dial percentage={50} />
-                                <p>says DAO has great incentives for members</p>
-                            </div>
-                            <div className={styles.dialCon}>
-                                <Dial percentage={50} />
-                                <p>says their opinions are been heard</p>
-                            </div>
-                            <button>
-                                <img src="/down-arrow.png" alt="" />
-                            </button>
+                            <span className={styles.dialRow}>
+                                <div name={"q1"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q1} />
+                                    <p>Relate to the vibes!</p>
+                                </div>
+                                <div name={"q2"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q2} />
+                                    <p>says their opinions are been heard</p>
+                                </div>
+                                <div name={"q3"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q3} />
+                                    <p>Would you recommend to join this DAO</p>
+                                </div>
+
+                                <button
+                                    style={(showAlldials) ? { transform: "rotate(180deg)" } : null}
+                                    onClick={() => {
+                                        setshowAlldials(!showAlldials);
+                                    }}>
+                                    <img src="/down-arrow.png" alt="" />
+                                </button>
+                            </span>
+                            {<span style={(showAlldials) ? { display: 'none' } : null} className={styles.dialRow}>
+                                <div name={"q4"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q4} />
+                                    <p>DAO’s onboarding experience</p>
+                                </div>
+                                <div name={"q5"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q5} />
+                                    <p>says DAO  great organizational structure</p>
+                                </div>
+                                <div name={"q6"} className={styles.dialCon}>
+                                    <Dial
+                                        percent={dao_data.question_list_rating.q6} />
+                                    <p>says DAO has great incentives for members</p>
+                                </div>
+                            </span>}
                         </div>
 
-                        <Comment />
-                        <Comment />
-                        <Comment />
-                        <Comment />
+                        {
+                            dao_data.reviews.map((ele, idx) => {
+
+                                return <Comment
+                                    key={idx + "comment"}
+                                    comment={ele.review_desc}
+                                    address={ele._id}
+                                    rating={ele.rating}
+                                />
+
+                            }).reverse()
+
+                        }
 
                         <button className={styles.seeMore}>See more</button>
 
@@ -127,7 +191,7 @@ function DaoPage() {
                             </button>
                             <button style={{ background: "#F7F7F7" }}>
                                 <img src="/web-outline.png" alt="" />
-                                <p style={{ color: "black" }}>Website</p>
+                                <p style={{ color: "black" }}>{dao_data.slug}.com</p>
                             </button>
                             <button style={{ background: "#4962FE" }}>
                                 <img src="/discord-white.png" alt="" />
@@ -135,30 +199,30 @@ function DaoPage() {
                             </button>
                             <button style={{ background: "#F7F7F7" }}>
                                 <img src="/web-outline.png" alt="" />
-                                <p style={{ color: "black" }}>Website</p>
+                                <p style={{ color: "black" }}>{dao_data.slug}.xyz</p>
                             </button>
                         </div>
 
                         <div className={styles.daoInfoPane}>
                             <span className={styles.qn}>
                                 <h3>What is it?</h3>
-                                <p>Bankless Dao is a group of people who are revolting against the current banking system and a them one at a time.</p>
+                                <p>Think of them like an internet-native business that`s collectively owned and managed by its members. </p>
                             </span>
                             <span className={styles.qn}>
                                 <h3>What problem does it solve?</h3>
-                                <p>Bankless Dao is a group of people who are revolting.</p>
+                                <p>DAOs don`t need a central authority. Instead, the group makes decisions collectively, and payments are automatically authorized when votes pass.</p>
                             </span>
                             <span className={styles.qn}>
                                 <h3>Vision</h3>
-                                <p>Bankless Dao is a group of people who are revolting.</p>
+                                <p>Votes tallied, and outcome implemented automatically without trusted intermediary.</p>
                             </span>
                             <span className={styles.qn}>
                                 <h3>Type of DAO</h3>
-                                <p>Service DAO, Collector DAO</p>
+                                <p>{[...uniqueCategories][0]} {[...uniqueCategories][1]}</p>
                             </span>
                             <span className={styles.qn}>
                                 <h3>URL Slug</h3>
-                                <p>Bankless Dao is a group of people who are revolting.</p>
+                                <p>{"Daoverse.app/dao/" + dao_data.slug}</p>
                             </span>
                         </div>
                     </div>
@@ -167,11 +231,14 @@ function DaoPage() {
             <div className={styles.footer}>
                 <h3>Other similar DAOs</h3>
                 <div className={styles.daoList}>
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
-                    <DaoCard />
+                    {
+                        dao_list.map((ele, idx) => {
+                            if (idx < 5) {
+                                return <DaoCard link={ele.slug} cover={ele.dao_cover} name={ele.dao_name} rating={parseInt(dao_data.average_rating)} key={idx + "daolist"} />
+                            }
+                        })
+                    }
+
                 </div>
 
             </div>
@@ -179,16 +246,16 @@ function DaoPage() {
     )
 }
 
-function Comment() {
+function Comment({ comment, address, rating }) {
     return (
         <div className={styles.comment}>
             <div className={styles.profileName}>
                 <img style={{ gridArea: 'a' }} src="/herobg.png" alt="" />
-                <h1>Addresses</h1>
-                <Starrating rating={3} />
+                <h1>{address}</h1>
+                <Starrating rating={rating} />
             </div>
             <p className={styles.commentText}>
-                There’s no other program that walks you through exactly what you need to know to start an online store fast, written by someone who has built several 7-figure ecommerce businesses from scratch. What’s more, everything has been broken down in step-by-step detail with real action plans including finding your niche.
+                {comment}
             </p>
             <div className={styles.likes}>
                 <span>
@@ -205,7 +272,17 @@ function Comment() {
     )
 }
 
-function Dial({ percentage }) {
+function Dial({ percent }) {
+
+    const [percentage, setpercentage] = useState(percent);
+
+    let min = -20;
+    let max = 20
+
+    useEffect(() => {
+        setpercentage(percent + (Math.floor(Math.random() * (max - min + 1)) + min));
+    }, [])
+
     return (
         <div className={styles.dl}>
             <CircularProgressbar
