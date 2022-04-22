@@ -71,7 +71,7 @@ function DaoPage() {
         }
     }
 
-    const [showAlldials, setshowAlldials] = useState(false);
+    const [showAlldials, setshowAlldials] = useState(true);
 
     if (!dao_data) {
         return (
