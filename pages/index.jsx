@@ -4,6 +4,7 @@ import styles from './index/index.module.scss'
 import Nav from '../components/Nav';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import stringSimilarity from "string-similarity";
 
 
 const openNewTab = (url) => {
@@ -51,7 +52,7 @@ export default function Home() {
 
   }, [])
 
-
+  const [searchTerm, setsearchTerm] = useState("");
 
   return (
     <div className={styles.container}>
@@ -63,32 +64,27 @@ export default function Home() {
 
       <section className={styles.homepage}>
         <div className={styles.hero}>
-          <Nav topSearchVisible={topSearchVisible} />
+          <Nav data={daoList} topSearchVisible={topSearchVisible} />
           <div className={styles.title}>
             <h3>Review DAOs to</h3>
             <h3 className={styles.titleBlue}>Earn Rewards!</h3>
           </div>
           <p className={styles.subTitle}>Unlock rewards for learning, contributing and reviewing DAOs Anonymously!</p>
-          <SearchComp />
-          {/* {
-            (searchVisible) ? <SearchComp /> : <button onClick={() => {
-              setSearchVisible(true);
-            }} > <img src="/search-icon.png" alt="" /> Search your DAOs here</button>
-          } */}
+          <SearchComp data={daoList} />
         </div>
 
         <div id={'sec2'} className={styles.sec2}>
-          <div style={{ gridArea: 'a', background: "#040E10" }} >
-            <h3 style={{ width: '406px' }}>Earn NFT for reviewing DAOs</h3>
-            <img className={styles.floatimg1} src="/sec2float1.png" alt="" />
+          <div style={{ gridArea: 'a', background: "url(ha.png)" }} >
+            <h3 style={{ width: '270px' }}>Earn <span className={styles.text_red}>cool  rewards</span> for reviewing DAOs</h3>
           </div>
-          <div style={{ gridArea: 'b', background: "#040E10" }} >
-            <h3 style={{ width: '457px', fontSize: '48px' }}>Discover, Join and Contribute to DAOs </h3>
-            <img className={styles.floatimg2} src="/sec2float2.png" alt="" />
+          <div style={{ gridArea: 'b', background: "url(hb.png)" }} >
+            <h3 style={{ width: '240px' }}><span className={styles.text_lpurple}>Discover, Join and Contribute</span> to DAOs </h3>
           </div>
-          <div style={{ gridArea: 'c', background: "#060721" }} >
-            <h3 style={{ width: '525px', fontSize: '48px' }}>100% fully On-chain and Anonymous</h3>
-            <img className={styles.floatimg3} src="/sec2float3.png" alt="" />
+          <div style={{ gridArea: 'c', background: "url(hc.png)" }} >
+            <h3 style={{ width: '525px' }}>100% fully<span className={styles.text_purple}> On-chain</span> and <span className={styles.text_purple}>Anonymous</span></h3>
+          </div>
+          <div style={{ gridArea: 'd', background: "url(hd.png)" }} >
+            <h3 style={{ width: '525px' }}>Earn tips for your<span className={styles.text_gold}> genuine reviews</span></h3>
           </div>
         </div>
 
@@ -168,7 +164,7 @@ export default function Home() {
                     <img src={medal} alt="" />
                   </span>
                   <span className={styles.tb2}>{ele.dao_name}</span>
-                  <span className={styles.tb3}><Starrating rating={ele.average_rating} /></span>
+                  <span className={styles.tb3}><Starrating rating={ele.average_rating} />{<p>(456)</p>}</span>
                   <span className={styles.tb4}>
                     <img onClick={() => { openNewTab(ele.twitter_link) }} src="/twitter-white.png" alt="" />
                     <img onClick={() => { openNewTab(ele.discord_link) }} src="/discord-white.png" alt="" />
@@ -232,17 +228,30 @@ export default function Home() {
   )
 }
 
-function SearchComp() {
+function SearchComp({ data }) {
+  const [searchTerm, setsearchTerm] = useState("");
+
+
   return (
     <div className={styles.searchComp}>
-      <input type="text" />
+      <input value={searchTerm} type="text" onChange={(e) => { setsearchTerm(e.target.value) }} />
       <img className={styles.searchIcon} src="search-blue.png" alt="" />
       <div className={styles.suggestionCon}>
-        <div className={styles.suggestion}>
-          <img style={{ gridArea: "a" }} src="/sample.jpg" alt="" />
-          <h1 style={{ gridArea: "b" }}>Bankless DAO</h1>
-          <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
-          <p style={{ gridArea: "d" }}>128 reviews</p>
+        <div className={styles.suggestionCon}>
+          {
+            data.map((value) => {
+              if (stringSimilarity.compareTwoStrings(searchTerm, value.dao_name.toLowerCase()) > 0.5) {
+                return (
+                  <div className={styles.suggestion} onClick={() => { openNewTab(`${window.location.href}/dao/${value.slug}`) }}>
+                    <img style={{ gridArea: "a" }} src={value.dao_logo} alt="" />
+                    <h1 style={{ gridArea: "b" }}>{value.dao_name}</h1>
+                    <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
+                    <p style={{ gridArea: "d" }}>128 reviews</p>
+                  </div>
+                )
+              }
+            })
+          }
         </div>
       </div>
     </div>
@@ -258,8 +267,10 @@ function DaoCard({ data, link }) {
     }}>
       <img className={styles.cardCover} src={cover} alt="" />
       <div className={styles.info}>
-        <p>{data.dao_name}</p>
-        <Starrating rating={4} />
+        <p>{data.dao_name} <img src="/verified.png" alt="" /> </p>
+        <div className={styles.ratingBox}>
+          <p>{"4.0"}</p> <img src="/star-filled.png" alt="" />
+        </div>
         <span className={styles.socialIcon}>
           <img src="/twitter-grey.png" onClick={() => { openNewTab(data.twitter_link) }} alt="" />
           <img src="/discord-grey.png" onClick={() => { openNewTab(data.discord_link) }} alt="" />

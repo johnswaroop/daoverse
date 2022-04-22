@@ -54,6 +54,13 @@
         color: white;
         margin-bottom: 0;
         font-size: 40px;
+
+        img {
+            height: 24.5px;
+            width: min-content;
+            object-fit: contain;
+            margin-bottom: 2px;
+        }
     }
 
     .tags {
@@ -113,6 +120,18 @@
             color: black;
             font-weight: 500;
         }
+    }
+}
+
+.subRatingCon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .subRating {
+        font-size: 20px;
+        font-weight: 400;
+        margin-top: 10px;
+        color: white;
     }
 }
 

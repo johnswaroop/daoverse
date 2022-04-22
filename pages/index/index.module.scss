@@ -71,9 +71,12 @@
 
 .sec2 {
     display: grid;
-    grid-template-columns: 591px 781px;
+    justify-content: center;
+    grid-template-columns: 313px 313px 642px;
     grid-row: 214px 214px;
-    grid-template-areas: "a b" "a c";
+    grid-template-areas:
+        "a b c"
+        "a b d";
     width: 1392px;
     height: 444px;
     column-gap: 20px;
@@ -82,15 +85,16 @@
     margin-bottom: 88px;
 
     div {
-        background-color: black;
         border-radius: 32px;
-        padding: 42px;
+        padding: 24px;
         position: relative;
+        background-size: cover !important;
+
         h3 {
             color: #f6f6f6;
             font-family: "Inter";
             font-weight: 700;
-            font-size: 60px;
+            font-size: 32px;
             line-height: 120%;
             margin: 0;
         }
@@ -99,19 +103,48 @@
             position: absolute;
         }
 
-        .floatimg1 {
-            bottom: 0;
-            right: 0;
+        .text_red {
+            background: linear-gradient(90deg, #eb6079 0%, #ee5193 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "Inter";
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 120%;
+            margin: 0;
         }
 
-        .floatimg2 {
-            right: 0;
-            bottom: 0;
+        .text_lpurple {
+            background: linear-gradient(90deg, #e79ed8 0%, #e47ecf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "Inter";
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 120%;
+            margin: 0;
         }
 
-        .floatimg3 {
-            right: 0;
-            bottom: 0;
+        .text_purple {
+            background: linear-gradient(90deg, #d78dee 0%, #ca97da 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "Inter";
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 120%;
+            margin: 0;
+        }
+
+        .text_gold {
+            background: linear-gradient(90deg, #ece49b 0%, #f8ed89 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "Inter";
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 120%;
+            margin: 0;
         }
     }
 }
@@ -201,6 +234,32 @@
             animation: appear 0.35s ease-in-out forwards;
         }
 
+        .ratingBox {
+            color: white;
+            width: 44.69px;
+            height: 23px;
+            margin: 0;
+            background: linear-gradient(90deg, #5e1ed1 0%, #3065f3 100%);
+            border-radius: 4px;
+            align-items: center;
+            padding: 4px;
+            justify-content: space-evenly;
+            position: relative;
+            margin-top: 6px;
+            img {
+                width: 12.69px;
+                margin: 0;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+            }
+            p {
+                font-weight: 500;
+                font-size: 12px !important;
+                margin-left: 2px !important;
+            }
+        }
+
         .cardCover {
             display: flex;
             width: 100%;
@@ -221,11 +280,16 @@
                 font-weight: 500;
                 font-size: 19.8269px;
                 margin: 0;
+
+                img{
+                    top: 10px;
+                    height: 15px;
+                }
             }
 
             .socialIcon {
                 margin-left: 3px;
-                margin-top: 11.5px;
+                margin-top: 8px;
                 img {
                     margin-right: 6.5px;
                     width: 16px;
@@ -322,10 +386,17 @@
             }
         }
         .tb2 {
-            width: 434px;
+            width: 410px;
         }
         .tb3 {
-            width: 220px;
+            width: 240px;
+            display: flex;
+            align-items: center;
+
+            p{
+                margin: 0;
+                margin-top: 11px;
+            }
         }
         .tb4 {
             width: 181px;
@@ -568,18 +639,23 @@
 
     .suggestionCon {
         display: flex;
-        width: 603px;
-        min-height: 162px;
+        flex-direction: column;
+        width: 600px;
         background: white;
         border-radius: 16px;
         position: absolute;
-        top: 75px;
+        height: max-content;
+        top: 40px;
+        box-shadow: 0 0 12px rgb(190, 190, 190);
+        z-index: 100;
     }
 
     .suggestion {
+        padding-top: 35px;
         margin: auto 0;
         margin-left: 16px;
         display: grid;
+        min-height: 162px;
         grid-template-columns: max-content max-content;
         grid-template-rows: max-content max-content max-content;
         grid-template-areas:
@@ -613,6 +689,7 @@
             font-weight: 400;
             font-size: 14px;
         }
+        border-bottom: 1.5px solid rgb(207, 207, 207);
     }
 }
 

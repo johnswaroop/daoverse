@@ -62,7 +62,7 @@
         position: absolute;
         font-weight: 500;
         font-size: 20px;
-        color: rgba(48, 101, 243, 1);
+        color: rgb(0, 0, 0);
     }
 
     .searchIcon {
@@ -77,18 +77,22 @@
 
     .suggestionCon {
         display: flex;
+        flex-direction: column;
         width: 600px;
-        min-height: 162px;
         background: white;
         border-radius: 16px;
         position: absolute;
+        height: max-content;
         top: 75px;
+        box-shadow: 0 0 12px rgb(190, 190, 190);
     }
 
     .suggestion {
+        padding-top: 35px;
         margin: auto 0;
         margin-left: 16px;
         display: grid;
+        min-height: 162px;
         grid-template-columns: max-content max-content;
         grid-template-rows: max-content max-content max-content;
         grid-template-areas:
@@ -122,6 +126,7 @@
             font-weight: 400;
             font-size: 14px;
         }
+        border-bottom: 1.5px solid rgb(207, 207, 207);
     }
 }
 

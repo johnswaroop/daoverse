@@ -99,8 +99,13 @@ function DaoPage() {
                     <img src={(dao_data.dao_cover) ? dao_data.dao_cover : "/dao-cover.png"} alt="" />
                     <div className={styles.gradient} />
                     <div className={styles.daoInfo}>
-                        <h1>{dao_data.dao_name}</h1>
-                        <Starrating rating={dao_data.average_rating} />
+                        <h1>{dao_data.dao_name} <img src="/verified.png" alt="" /> </h1>
+                        <span className={styles.subRatingCon}>
+                            <Starrating rating={dao_data.average_rating} />
+                            <div className={styles.subRating}>
+                                125 reviews
+                            </div>
+                        </span>
                         <div className={styles.tags}>
                             {
                                 [...uniqueCategories].map((cat) => {
