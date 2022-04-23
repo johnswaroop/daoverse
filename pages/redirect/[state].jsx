@@ -28,6 +28,14 @@ function DaoForm() {
         }}>Try again</button>
     </>
 
+    if (!state) {
+        return (
+            <h1>
+
+            </h1>
+        )
+    }
+
     return (
 
         <div className={styles.con}>
