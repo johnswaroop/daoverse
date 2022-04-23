@@ -264,7 +264,7 @@ function Comment({ comment, address, rating, profile_img }) {
         <div className={styles.comment}>
             <div className={styles.profileName}>
                 <img style={{ gridArea: 'a' }} src={p_img} alt="" />
-                <h1>{address}</h1>
+                <h1>{address.slice(0, 5) + "..." + address.slice(-6, -1)}</h1>
                 <Starrating rating={rating} />
             </div>
             <p className={styles.commentText}>
