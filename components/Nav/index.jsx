@@ -36,7 +36,7 @@ function Nav({ topSearchVisible, data }) {
 
     return (
         <div className={search_style}>
-            <img className={styles.logo} onClick={() => { window.location.href = window.location.href.split('/')[1] }} src="/logo.png" alt="" />
+            <img className={styles.logo} onClick={() => { window.location.href = '/' }} src="/logo.png" alt="" />
             <SearchComp data={data} topSearchVisible={topSearchVisible} />
             <ul>
                 <li>Add a dao</li>
