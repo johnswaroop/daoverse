@@ -302,6 +302,10 @@
     width: 459px;
     margin-left: 48px;
     flex-direction: column;
+    height: max-content;
+    position: sticky;
+    top: 50px;
+    margin-bottom: 20px;
 }
 
 .socials {
