@@ -7,6 +7,7 @@ import DaoCard from '../../components/DaoCard';
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
+
 const API = process.env.API;
 
 function Starrating({ rating }) {
@@ -32,6 +33,8 @@ function DaoPage() {
 
     const router = useRouter()
     const slug = router.query.slug
+
+
 
     useEffect(() => {
         slug && fetchData()
@@ -121,12 +124,14 @@ function DaoPage() {
                         <button onClick={() => {
                             window.location.href = `../set-review/${dao_data._id}`
                         }}>Add a Review</button>
-                        <button className={styles.slug}>{`Daoverse.com/dao/${slug}`}</button>
+                        <button onClick={() => {
+                            navigator.clipboard.writeText(`Daoverse.com/dao/${slug}`);
+                        }} id={"clipboard"} className={styles.slug}>{`Daoverse.com/dao/${slug}`}<span className={styles.copy}></span></button>
                     </div>
                 </div>
                 <div className={styles.contentCon}>
                     <div className={styles.content}>
-                        <div className={styles.dials}>
+                        <div className={styles.dials} >
                             <span className={styles.dialRow}>
                                 <div name={"q1"} className={styles.dialCon}>
                                     <Dial
@@ -145,14 +150,14 @@ function DaoPage() {
                                 </div>
 
                                 <button
-                                    style={(showAlldials) ? { transform: "rotate(180deg)" } : null}
+                                    style={(!showAlldials) ? { transform: "rotate(180deg)" } : null}
                                     onClick={() => {
                                         setshowAlldials(!showAlldials);
                                     }}>
                                     <img src="/down-arrow.png" alt="" />
                                 </button>
                             </span>
-                            {<span style={(showAlldials) ? { display: 'none' } : null} className={styles.dialRow}>
+                            {(!showAlldials) && <span style={(showAlldials) ? { display: 'none' } : null} className={styles.dialRow}>
                                 <div name={"q4"} className={styles.dialCon}>
                                     <Dial
                                         percent={dao_data.question_list_rating.q4} />
@@ -177,8 +182,9 @@ function DaoPage() {
                                 return <Comment
                                     key={idx + "comment"}
                                     comment={ele.review_desc}
-                                    address={ele._id}
+                                    address={ele.public_address}
                                     rating={ele.rating}
+                                    profile_img={ele.profile_img}
                                 />
 
                             }).reverse()
@@ -247,22 +253,24 @@ function DaoPage() {
                 </div>
 
             </div>
+
         </>
     )
 }
 
-function Comment({ comment, address, rating }) {
+function Comment({ comment, address, rating, profile_img }) {
+    let p_img = (profile_img) ? profile_img : "/herobg.png"
     return (
         <div className={styles.comment}>
             <div className={styles.profileName}>
-                <img style={{ gridArea: 'a' }} src="/herobg.png" alt="" />
+                <img style={{ gridArea: 'a' }} src={p_img} alt="" />
                 <h1>{address}</h1>
                 <Starrating rating={rating} />
             </div>
             <p className={styles.commentText}>
                 {comment}
             </p>
-            <div className={styles.likes}>
+            {/* <div className={styles.likes}>
                 <span>
                     <img src="/thumbs-up.png" alt="" />
                     <p>234</p>
@@ -271,21 +279,22 @@ function Comment({ comment, address, rating }) {
                     <img src="/thumbs-down.png" alt="" />
                     <p>234</p>
                 </span>
-
-            </div>
+            </div> */}
         </div>
     )
 }
 
 function Dial({ percent }) {
 
-    const [percentage, setpercentage] = useState(percent);
+    const [percentage, setpercentage] = useState(0);
 
     let min = -20;
     let max = 20
 
     useEffect(() => {
-        setpercentage(percent + (Math.floor(Math.random() * (max - min + 1)) + min));
+        setTimeout(() => {
+            setpercentage(percent);
+        }, 1000)
     }, [])
 
     return (

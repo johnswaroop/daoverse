@@ -375,10 +375,15 @@ function Rating({ setrating }) {
 
 
 const openMetaMask = async () => {
-    let ethereum = window.ethereum
-    let accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-    console.log(accounts);
-    return accounts[0]
+    let wallet = window.localStorage.getItem('wallet');
+    if (!wallet) {
+        let ethereum = window.ethereum
+        let accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+        console.log(accounts);
+        window.localStorage.setItem('wallet', accounts[0]);
+        wallet = accounts[0];
+    }
+    return wallet
 }
 
 

@@ -217,7 +217,7 @@
         display: flex;
         width: 100%;
         flex-wrap: wrap;
-        margin-top: 83px;
+        margin-top: 35px;
         //justify-content: center;
 
         .daoCard {
@@ -232,6 +232,17 @@
             overflow: hidden;
             box-shadow: 0px 3.17231px 12.6892px rgba(51, 51, 51, 0.397), 0px 3.17231px 3.17231px rgba(51, 51, 51, 0.24);
             animation: appear 0.35s ease-in-out forwards;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            .noReviews {
+                font-weight: 400;
+                font-size: 13px;
+                margin-left: 8px;
+                margin-top: 5px;
+            }
         }
 
         .ratingBox {
@@ -281,7 +292,7 @@
                 font-size: 19.8269px;
                 margin: 0;
 
-                img{
+                img {
                     top: 10px;
                     height: 15px;
                 }
@@ -393,7 +404,7 @@
             display: flex;
             align-items: center;
 
-            p{
+            p {
                 margin: 0;
                 margin-top: 11px;
             }
@@ -482,7 +493,7 @@
         width: 128px;
         grid-template-columns: max-content max-content;
         grid-template-rows: max-content max-content;
-        grid-template-areas: "a b" "a c";
+        grid-template-areas: "a b" "a c" "a d";
         margin-top: auto;
 
         .profileImg {
@@ -490,6 +501,7 @@
             height: 56px;
             border-radius: 100%;
             margin-right: 15px;
+            margin-top: auto;
         }
         p {
             margin: 0;
@@ -497,6 +509,13 @@
             font-weight: 600;
             font-size: 16px;
         }
+
+        .dao_name {
+            font-weight: 400;
+            font-size: 16px;
+            margin-top: 0;
+        }
+
         .ratingComp {
             margin-top: -8px;
             img {

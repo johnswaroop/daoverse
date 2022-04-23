@@ -7,6 +7,7 @@
     border-radius: 25.3785px;
     margin: 23.5px 6.5px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .cardCover {
@@ -38,5 +39,42 @@
             margin-right: 6.5px;
             width: 16px;
         }
+    }
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    .noReviews {
+        font-weight: 400;
+        font-size: 13px;
+        margin-left: 8px;
+        margin-top: 5px;
+    }
+}
+
+.ratingBox {
+    color: white;
+    width: 44.69px;
+    height: 23px;
+    margin: 0;
+    background: linear-gradient(90deg, #5e1ed1 0%, #3065f3 100%);
+    border-radius: 4px;
+    align-items: center;
+    padding: 4px;
+    justify-content: space-evenly;
+    position: relative;
+    margin-top: 6px;
+    img {
+        width: 12.69px;
+        margin: 0;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+    p {
+        font-weight: 500;
+        font-size: 12px !important;
+        margin-left: 2px !important;
     }
 }

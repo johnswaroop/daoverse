@@ -7,17 +7,22 @@ const openNewTab = (url) => {
     a.target = '_blank';
     a.href = url;
     a.click();
-  }
+}
 
 function DaoCard({ cover, name, rating, link }) {
     return (
-        <div className={styles.daoCard} onClick={()=>{
+        <div className={styles.daoCard} onClick={() => {
             openNewTab(`${window.location.href.split("/")[0]}/dao/${link}`)
         }}>
             <img className={styles.cardCover} src={cover} alt="" />
             <div className={styles.info}>
                 <p>{name}</p>
-                <Starrating rating={rating} />
+                <span className={styles.rating}>
+                    <div className={styles.ratingBox}>
+                        <p>{"4.0"}</p> <img src="/star-filled.png" alt="" />
+                    </div>
+                    <p className={styles.noReviews}>{Math.floor(Math.random() * 100)} reviews</p>
+                </span>
                 <span className={styles.socialIcon}>
                     <img src="/twitter-grey.png" alt="" />
                     <img src="/discord-grey.png" alt="" />

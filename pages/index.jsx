@@ -5,7 +5,7 @@ import Nav from '../components/Nav';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import stringSimilarity from "string-similarity";
-
+import ClipboardJS from 'clipboard'
 
 const openNewTab = (url) => {
   if (url.length < 1) return
@@ -145,33 +145,41 @@ export default function Home() {
           </div>
           {
             leaderboard.map((ele, idx) => {
-              let medal = '/medal-blank.png';
+              if (idx < 10) {
+                let medal = '/medal-blank.png';
 
-              if (idx == 0) {
-                medal = 'medal-gold.png';
-              }
-              if (idx == 1) {
-                medal = 'medal-silver.png';
-              }
-              if (idx == 2) {
-                medal = 'medal-bronze.png';
-              }
+                if (idx == 0) {
+                  medal = 'medal-gold.png';
+                }
+                if (idx == 1) {
+                  medal = 'medal-silver.png';
+                }
+                if (idx == 2) {
+                  medal = 'medal-bronze.png';
+                }
 
-              return (
-                <div key={"m" + ele.dao_name} className={styles.tableBody}>
-                  <span className={styles.tb1}>
-                    <p>#{idx + 1}</p>
-                    <img src={medal} alt="" />
-                  </span>
-                  <span className={styles.tb2}>{ele.dao_name}</span>
-                  <span className={styles.tb3}><Starrating rating={ele.average_rating} />{<p>(456)</p>}</span>
-                  <span className={styles.tb4}>
-                    <img onClick={() => { openNewTab(ele.twitter_link) }} src="/twitter-white.png" alt="" />
-                    <img onClick={() => { openNewTab(ele.discord_link) }} src="/discord-white.png" alt="" />
-                    <img onClick={() => { openNewTab(ele.website_link) }} src="/web-white.png " alt="" />
-                  </span>
-                </div>
-              )
+                return (
+                  <div key={"m" + ele.dao_name} className={styles.tableBody}>
+                    <span className={styles.tb1} onClick={() => {
+                      openNewTab(`${window.location.href}/dao/${ele.slug}`);
+                    }}>
+                      <p>#{idx + 1}</p>
+                      <img src={medal} alt="" />
+                    </span>
+                    <span className={styles.tb2}
+                      onClick={() => {
+                        openNewTab(`${window.location.href}/dao/${ele.slug}`);
+                      }}
+                    >{ele.dao_name}</span>
+                    <span className={styles.tb3}><Starrating rating={ele.average_rating} />{<p>(456)</p>}</span>
+                    <span className={styles.tb4}>
+                      <img onClick={() => { openNewTab(ele.twitter_link) }} src="/twitter-white.png" alt="" />
+                      <img onClick={() => { openNewTab(ele.discord_link) }} src="/discord-white.png" alt="" />
+                      <img onClick={() => { openNewTab(ele.website_link) }} src="/web-white.png " alt="" />
+                    </span>
+                  </div>
+                )
+              }
             })
           }
         </div>
@@ -189,6 +197,7 @@ export default function Home() {
                 <img className={styles.commaFloat} src="/comma-float.png" alt="" />
                 <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
                 <p>Van Goh</p>
+                <p className={styles.dao_name}>Uniswap</p>
                 <Starrating rating={4} />
               </div>
             </div>
@@ -198,6 +207,7 @@ export default function Home() {
                 <img className={styles.commaFloat} src="/comma-float.png" alt="" />
                 <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
                 <p>Van Goh</p>
+                <p className={styles.dao_name}>Uniswap</p>
                 <Starrating rating={4} />
               </div>
             </div>
@@ -207,6 +217,7 @@ export default function Home() {
                 <img className={styles.commaFloat} src="/comma-float.png" alt="" />
                 <img style={{ gridArea: 'a' }} className={styles.profileImg} src="https://assets-global.website-files.com/5ec7dad2e6f6295a9e2a23dd/5edfa7c6f978e75372dc332e_profilephoto1.jpeg" alt="" />
                 <p>Van Goh</p>
+                <p className={styles.dao_name}>Uniswap</p>
                 <Starrating rating={4} />
               </div>
             </div>
@@ -230,27 +241,23 @@ export default function Home() {
 
 function SearchComp({ data }) {
   const [searchTerm, setsearchTerm] = useState("");
-
+  const [inputFocus, setinputFocus] = useState(false);
 
   return (
     <div className={styles.searchComp}>
-      <input value={searchTerm} type="text" onChange={(e) => { setsearchTerm(e.target.value) }} />
+      <input value={searchTerm} type="text" onChange={(e) => { setsearchTerm(e.target.value) }}
+        onFocus={() => {
+          setinputFocus(true);
+        }}
+        onBlur={() => {
+          setinputFocus(false);
+        }}
+      />
       <img className={styles.searchIcon} src="search-blue.png" alt="" />
       <div className={styles.suggestionCon}>
-        <div className={styles.suggestionCon}>
+        <div className={styles.suggestionCon} key={"home"}>
           {
-            data.map((value) => {
-              if (stringSimilarity.compareTwoStrings(searchTerm, value.dao_name.toLowerCase()) > 0.5) {
-                return (
-                  <div className={styles.suggestion} onClick={() => { openNewTab(`${window.location.href}/dao/${value.slug}`) }}>
-                    <img style={{ gridArea: "a" }} src={value.dao_logo} alt="" />
-                    <h1 style={{ gridArea: "b" }}>{value.dao_name}</h1>
-                    <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
-                    <p style={{ gridArea: "d" }}>128 reviews</p>
-                  </div>
-                )
-              }
-            })
+            (searchTerm.length > 0 && inputFocus) && rankToSearch(searchTerm, data)
           }
         </div>
       </div>
@@ -268,9 +275,12 @@ function DaoCard({ data, link }) {
       <img className={styles.cardCover} src={cover} alt="" />
       <div className={styles.info}>
         <p>{data.dao_name} <img src="/verified.png" alt="" /> </p>
-        <div className={styles.ratingBox}>
-          <p>{"4.0"}</p> <img src="/star-filled.png" alt="" />
-        </div>
+        <span className={styles.rating}>
+          <div className={styles.ratingBox}>
+            <p>{"4.0"}</p> <img src="/star-filled.png" alt="" />
+          </div>
+          <p className={styles.noReviews}>{Math.floor(Math.random() * 100)} reviews</p>
+        </span>
         <span className={styles.socialIcon}>
           <img src="/twitter-grey.png" onClick={() => { openNewTab(data.twitter_link) }} alt="" />
           <img src="/discord-grey.png" onClick={() => { openNewTab(data.discord_link) }} alt="" />
@@ -315,6 +325,33 @@ const getLeaderboard = async (setter) => {
   let res = await axios.get(url);
   console.log(res.data)
   setter(res.data);
+}
+
+const rankToSearch = (searchTerm, data) => {
+  let List = data.map((ele, idx) => {
+    let rank = Math.max(stringSimilarity.compareTwoStrings(searchTerm, ele.dao_name.toLowerCase()), stringSimilarity.compareTwoStrings(searchTerm, ele.dao_name))
+    return [rank, idx]
+  });
+
+  let ranklist = List.sort((a, b) => { return a[0] - b[0] }).reverse();
+
+  let searchlist = ranklist.map((ele) => {
+    return data[ele[1]]
+  })
+
+  return searchlist.map((value, idx) => {
+    if (idx < 5) {
+      return (<div key={value.dao_name}
+        className={styles.suggestion}
+        onClick={() => { openNewTab(`${window.location.href}/dao/${value.slug}`); }}
+      >
+        <img style={{ gridArea: "a" }} src={value.dao_logo} alt="" />
+        <h1 style={{ gridArea: "b" }}>{value.dao_name}</h1>
+        <h2 style={{ gridArea: "c" }}>quick brief about project</h2>
+        <p style={{ gridArea: "d" }}>128 reviews</p>
+      </div>)
+    }
+  })
 }
 
 

@@ -119,6 +119,18 @@
             background: white;
             color: black;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .copy {
+                display: flex;
+                width: 20px;
+                height: 20px;
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background: url("/copy.png");
+                margin-left: 15px;
+            }
         }
     }
 }
@@ -224,7 +236,6 @@
     border-radius: 32px;
     background-color: white;
     padding: 32px;
-    min-height: 250px;
     width: 100%;
     margin-top: 24px;
 
